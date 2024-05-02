@@ -1,0 +1,14 @@
+<h1>BlogPosts#index</h1>
+<% @blog_posts.each do |post| %>
+  <div>
+    <h2><%= link_to post.title, post %></h2>
+    <% if post.draft? %>
+      <div class="p-2 rounded bg-gray-100 text-gray-900">Draft</div>
+      <% elsif post.scheduled? %>
+        <div class="p-2 rounded bg-yellow-100 text-yellow-900">Scheduled</div>
+    <% end %>
+    <p><%= post.summary %></p>
+    <p><%= post.content %></p>
+  </div>
+<% end %>
+<%= link_to "new post", new_blog_post_path %>

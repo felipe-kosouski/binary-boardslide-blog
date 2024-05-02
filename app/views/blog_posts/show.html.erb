@@ -1,0 +1,23 @@
+<h1>BlogPosts#show</h1>
+<div>
+  <h2><%= @blog_post.title %></h2>
+  <p><%= @blog_post.summary %></p>
+  <p><%= @blog_post.content %></p>
+</div>
+<div>
+  <p>Category: <%= @blog_post.category.name %></p>
+</div>
+<div>
+  <h3>Tags:</h3>
+  <ul>
+    <% @blog_post.category.tags.each do |tag| %>
+      <li><%= tag %></li>
+    <% end %>
+  </ul>
+</div>
+
+<div>
+  <%= link_to 'Edit', edit_blog_post_path(@blog_post) %> |
+  <%= link_to 'Back', blog_posts_path %>
+</div>
+<%= button_to "Delete", @blog_post, method: :delete, data: {turbo_confirm: "Are you sure?"} %>
