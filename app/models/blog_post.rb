@@ -1,14 +1,18 @@
 class BlogPost < ApplicationRecord
+  after_validation :set_slug, on: :create
+
   validates :title, presence: true
   validates :summary, presence: true
   validates :content, presence: true
 
-  belongs_to :category
+  belongs_to :category, optional: true
 
-  scope :recent, -> { order(published_at: :desc) }
+  scope :recent, -> { order(arel_table[:published_at].desc.nulls_last) }
   scope :draft, -> { where(published_at: nil) }
   scope :published, -> { where("published_at <= ?", Time.current) }
   scope :scheduled, -> { where("published_at > ?", Time.current) }
+
+  has_rich_text :content
 
   def draft?
     published_at.nil?
@@ -20,5 +24,13 @@ class BlogPost < ApplicationRecord
 
   def scheduled?
     published_at? && published_at > Time.current
+  end
+
+  def set_slug
+    self.slug = self.title.parameterize
+  end
+
+  def to_param
+    slug
   end
 end

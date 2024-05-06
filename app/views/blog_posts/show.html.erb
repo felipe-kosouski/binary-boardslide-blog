@@ -5,15 +5,15 @@
   <p><%= @blog_post.content %></p>
 </div>
 <div>
-  <p>Category: <%= @blog_post.category.name %></p>
+  <p>Category: <%= @blog_post.category&.name %></p>
 </div>
 <div>
   <h3>Tags:</h3>
-  <ul>
-    <% @blog_post.category.tags.each do |tag| %>
-      <li><%= tag %></li>
-    <% end %>
-  </ul>
+<!--  <ul>-->
+    <%# @blog_post.category.tags.each do |tag| %>
+<!--      <li><%#= tag %></li>-->
+    <%# end %>
+<!--  </ul>-->
 </div>
 
 <div>
