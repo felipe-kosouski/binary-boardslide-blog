@@ -41,7 +41,7 @@ class BlogPostsController < ApplicationController
   private
 
   def blog_post_params
-    params.require(:blog_post).permit(:title, :summary, :content, :category_id, :published_at)
+    params.require(:blog_post).permit(:title, :summary, :content, :category_id, :published_at, :cover_image)
   end
 
   def find_by_slug

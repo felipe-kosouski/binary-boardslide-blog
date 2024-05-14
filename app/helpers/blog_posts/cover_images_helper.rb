@@ -1,0 +1,2 @@
+module BlogPosts::CoverImagesHelper
+end
