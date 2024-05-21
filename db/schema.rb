@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_14_125009) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_16_133020) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -70,6 +70,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_14_125009) do
     t.bigint "category_id"
     t.datetime "published_at"
     t.string "slug"
+    t.bigint "author_id", default: 1, null: false
+    t.index ["author_id"], name: "index_blog_posts_on_author_id"
     t.index ["category_id"], name: "index_blog_posts_on_category_id"
   end
 
@@ -93,6 +95,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_14_125009) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "bio"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -102,4 +105,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_14_125009) do
   add_foreign_key "blog_post_tags", "blog_posts"
   add_foreign_key "blog_post_tags", "tags"
   add_foreign_key "blog_posts", "categories"
+  add_foreign_key "blog_posts", "users", column: "author_id"
 end

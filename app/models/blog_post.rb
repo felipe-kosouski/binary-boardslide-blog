@@ -9,6 +9,7 @@ class BlogPost < ApplicationRecord
   belongs_to :category, optional: true
   has_many :blog_post_tags
   has_many :tags, through: :blog_post_tags
+  belongs_to :author, class_name: "User"
 
   scope :recent, -> { order(arel_table[:published_at].desc.nulls_last) }
   scope :draft, -> { where(published_at: nil) }

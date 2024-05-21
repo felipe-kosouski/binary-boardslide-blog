@@ -1,6 +1,6 @@
 class BlogPostsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :find_by_slug, only: [:show, :edit, :update, :destroy]
+  before_action :find_by_slug, only: [:show]
 
   def index
     @blog_posts = user_signed_in? ? BlogPost.recent : BlogPost.published.recent
@@ -9,39 +9,10 @@ class BlogPostsController < ApplicationController
   def show
   end
 
-  def new
-    @blog_post = BlogPost.new
-  end
-
-  def create
-    @blog_post = BlogPost.new(blog_post_params)
-    if @blog_post.save
-      redirect_to @blog_post
-    else
-      render :new, status: :unprocessable_entity
-    end
-  end
-
-  def edit
-  end
-
-  def update
-    if @blog_post.update(blog_post_params)
-      redirect_to @blog_post
-    else
-      render :edit, status: :unprocessable_entity
-    end
-  end
-
-  def destroy
-    @blog_post.destroy
-    redirect_to blog_posts_path
-  end
-
   private
 
   def blog_post_params
-    params.require(:blog_post).permit(:title, :summary, :content, :category_id, :published_at, :cover_image)
+    params.require(:blog_post).permit(:title, :summary, :content, :category_id, :published_at, :cover_image, :tags)
   end
 
   def find_by_slug
