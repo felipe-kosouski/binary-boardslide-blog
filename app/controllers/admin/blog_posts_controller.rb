@@ -1,5 +1,4 @@
-class Admin::BlogPostsController < ApplicationController
-  before_action :authenticate_user!
+class Admin::BlogPostsController < Admin::BaseController
   before_action :find_by_slug, only: [:show, :edit, :update, :destroy]
 
   def index

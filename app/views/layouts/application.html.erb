@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="">
   <head>
     <title>BinaryBoardslideBlog</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -12,15 +12,16 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body class="prose mx-auto">
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
+  <body class="font-mono">
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
 
-  <div>
-    <% if user_signed_in? %>
-      <%= button_to 'Logout', destroy_user_session_path, method: :delete %>
-    <% end %>
-  </div>
-  <%= yield %>
+    <%= render 'layouts/header' %>
+
+    <div class="container mx-auto py-12">
+      <%= yield %>
+    </div>
+
+    <%= render 'layouts/footer' %>
   </body>
 </html>

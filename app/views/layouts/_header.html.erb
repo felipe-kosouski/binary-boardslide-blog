@@ -1,0 +1,23 @@
+<header class="flex flex-row justify-between">
+  <div>
+    <h1 class="text-3xl">
+      <%= link_to 'Binary Boardslide', root_path %>
+    </h1>
+  </div>
+
+  <div class="flex flex-row justify-end space-x-56">
+    <div>
+      <% categories_for_select.each do |category| %>
+        <%= link_to category.name, '' %>
+      <% end %>
+    </div>
+
+    <div>
+      <% if user_signed_in? %>
+        <%= button_to 'Logout', destroy_user_session_path, method: :delete %>
+      <% end %>
+    </div>
+  </div>
+
+</header>
+
