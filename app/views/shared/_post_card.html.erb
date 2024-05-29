@@ -1,25 +1,22 @@
 <div class="flex flex-row rounded-2xl p-5 shadow-xl">
   <div class="flex flex-col w-full">
-    <h2 class="text-3xl"><%= link_to post.title, post %></h2>
+    <div class="flex flex-row space-x-5">
+      <h2 class="text-3xl"><%= link_to post.title, post %></h2>
+      <%= render 'shared/post_status', post: post %>
+    </div>
+
     <div class="grow">
       <p><%= post.summary %></p>
     </div>
     <div class="flex justify-between">
-      <p class="text-center"><%= post.created_at.strftime('%B %d, %Y') %></p>
+      <p class="text-center"><%= post.stringified_publication_date %></p>
 
       <div class="flex justify-end space-x-10">
         <div>
-          <% post.tags.each do |tag| %>
-            <span class="p-1 bg-gray-200 text-gray-900 rounded">#<%= tag.name %></span>
-          <% end %>
+          <%= render 'shared/tag', tags: post.tags %>
         </div>
-
         <div>
-          <% if post.category %>
-            <div>
-              <span class="p-1 bg-gray-200 text-gray-900 rounded"><%= post.category&.name %></span>
-            </div>
-          <% end %>
+            <%= render 'shared/category', category: post.category if post.has_category? %>
         </div>
 
       </div>
@@ -28,11 +25,4 @@
   <div class="w-3/4 flex flex-row justify-center">
       <%= image_tag post.cover_image, class: 'w-1/2' if post.cover_image.present? %>
   </div>
-</div>
-<div>
-  <% if post.draft? %>
-    <div class="p-2 rounded bg-gray-100 text-gray-900">Draft</div>
-  <% elsif post.scheduled? %>
-    <div class="p-2 rounded bg-yellow-100 text-yellow-900">Scheduled</div>
-  <% end %>
 </div>

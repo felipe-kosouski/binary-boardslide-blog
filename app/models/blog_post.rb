@@ -34,6 +34,14 @@ class BlogPost < ApplicationRecord
     self.slug = self.title.parameterize
   end
 
+  def has_category?
+    category.present?
+  end
+
+  def stringified_publication_date
+    published_at&.strftime("%B %d, %Y")
+  end
+
   def to_param
     slug
   end
